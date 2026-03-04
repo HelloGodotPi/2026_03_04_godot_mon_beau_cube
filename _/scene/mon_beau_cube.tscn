@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://d1o1odgj2adgl"]
+
+[ext_resource type="Script" uid="uid://b17yylx57lyja" path="res://_/script/hello_click_on_3d.gd" id="1_u06mp"]
+[ext_resource type="Script" uid="uid://bbdetht0yu0oi" path="res://_/script/rotate_target.gd" id="2_6phic"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6ibps"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vs0x0"]
+
+[node name="Node3D" type="Node3D" unique_id=7731432]
+script = ExtResource("1_u06mp")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1698033830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7991538)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1066810810]
+transform = Transform3D(0.4403466, 0.54620236, -0.71257126, 0, 0.79366136, 0.60835975, 0.89782786, -0.26788914, 0.34948608, 0, 1.1305425, 1.7649448)
+
+[node name="MonBeauCube" type="Node3D" parent="." unique_id=301671598 node_paths=PackedStringArray("target")]
+script = ExtResource("2_6phic")
+target = NodePath(".")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MonBeauCube" unique_id=2128953688]
+transform = Transform3D(0.550539, -0.8123753, -0.192232, 0, 0.23027052, -0.97312665, 0.8348094, 0.5357442, 0.12677291, 0, 0, 0)
+mesh = SubResource("BoxMesh_6ibps")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MonBeauCube" unique_id=243651197]
+script = ExtResource("1_u06mp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MonBeauCube/StaticBody3D" unique_id=550981550]
+shape = SubResource("BoxShape3D_vs0x0")
+
+[node name="Label" type="Label" parent="." unique_id=981414481]
+anchors_preset = -1
+anchor_right = 0.268
+anchor_bottom = 0.28
+offset_right = 7.263977
+offset_bottom = -17.440002
+text = "Hello World"
+
+[connection signal="on_cube_click_message" from="MonBeauCube/StaticBody3D" to="Label" method="set_text"]
